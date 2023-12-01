@@ -25,6 +25,6 @@ class Presence extends Model
 
     public function schedule()
     {
-        return $this->belongsTo(Presence::class, 'schedule_id');
+        return $this->belongsTo(Schedule::class);
     }
 }
