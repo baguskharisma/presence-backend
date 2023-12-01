@@ -75,7 +75,7 @@ class PresenceController extends Controller
         $currentHour = now()->hour;
         $allowedHour = $schedule->out_time;
 
-        if($currentHour < $allowedHour){
+        if($currentHour > $allowedHour){
             return response()->json(['message' => 'Anda belum diizinkan pulang']);
         } else {
             $status = "keluar";
