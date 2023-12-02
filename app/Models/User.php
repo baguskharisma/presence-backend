@@ -1,13 +1,6 @@
 <?php
 
 namespace App\Models;
-
-use App\Models\Position;
-use App\Models\Role;
-use App\Models\Department;
-use App\Models\Presence;
-use App\Models\Schedule;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

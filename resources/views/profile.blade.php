@@ -11,6 +11,9 @@
     <button>
         <a href="{{ route('home') }}" style="text-decoration: none; color: black;">Back</a>
     </button>
+    <button>
+        <a href="{{ route('schedule') }}" style="text-decoration: none; color: black;">Schedule</a>
+    </button>
 
     <table>
         <tr>

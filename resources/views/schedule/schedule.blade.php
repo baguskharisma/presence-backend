@@ -7,9 +7,15 @@
     <title>Schedule</title>
 </head>
 <body>
+    @auth
     <h2>List Schedule</h2>
+    @can('admin')
     <button>
         <a href="{{ route('create-schedule') }}" style="text-decoration:none; color:black;">Create Schedule</a>
+    </button>
+    @endcan
+    <button>
+        <a href="{{ route('profile') }}" style="text-decoration:none; color:black;">Back</a>
     </button>
     <table>
         <tr>
@@ -34,5 +40,6 @@
         </tr>
         @endforeach
     </table>
+    @endauth
 </body>
 </html>

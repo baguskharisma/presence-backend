@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Presence;
 use App\Models\User;
 use App\Models\Schedule;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
 class PresenceController extends Controller
@@ -27,18 +27,18 @@ class PresenceController extends Controller
             return response()->json(['message' => 'Tidak ada jadwal pada tanggal tersebut.']);
         }
 
-        $allowedHour = $schedule->in_time;
-        $endedHour = $schedule->out_time;
-        $allowedMinute = 1;
+        $allowedHour = Carbon::parse($schedule->in_time)->format('H.i');
+        $endedHour = Carbon::parse($schedule->out_time)->format('H.i');
 
-        $currentHour = now()->hour;
-        $currentMinute = now()->minute;
-        if($currentHour > $allowedHour || ($currentHour == $allowedHour && $currentMinute >= $allowedMinute)) {
+        $currentHour = now()->format('H.i');
+        if($currentHour >= $allowedHour) {
             $status = "terlambat";
-        }else if($currentHour > $endedHour){
-            return response()->json(['message' => 'Batas absen berakhir.']);
         }else{
             $status = "masuk";
+        }
+
+        if($currentHour == $endedHour){
+            return response()->json(['message' => 'Batas absen berakhir.']);
         }
 
         $checkEmployee = auth()->user()->id;
@@ -51,8 +51,8 @@ class PresenceController extends Controller
         $employee = User::find(auth()->user()->id);
         $employee->presence()->create([
             'status' => $status,
-            'date' => Carbon::now()->format('j F Y'),
-            'time' => Carbon::now()->format('H.i T'),
+            'date' => Carbon::parse(now()->day())->format('j F Y'),
+            'time' => Carbon::parse(now()->hour())->format('H.i T'),
             'name' => $employee->name
         ]);
 
@@ -72,10 +72,10 @@ class PresenceController extends Controller
             return response()->json(['message' => 'Tidak ada jadwal pada tanggal tersebut.']);
         }
 
-        $currentHour = now()->hour;
-        $allowedHour = $schedule->out_time;
+        $currentHour = now()->format('H.i');
+        $allowedHour = Carbon::parse($schedule->in_time)->format('H.i');
 
-        if($currentHour > $allowedHour){
+        if($currentHour < $allowedHour){
             return response()->json(['message' => 'Anda belum diizinkan pulang']);
         } else {
             $status = "keluar";
@@ -83,19 +83,25 @@ class PresenceController extends Controller
 
         $checkEmployee = auth()->user()->id;
         $todayPresence = Presence::where('user_id', $checkEmployee)->where('status', "keluar")->first();
+        $checkPresence = Presence::where('user_id', $checkEmployee)->where('status', [])->first();
+
+        if(!$checkPresence){
+            return response()->json(['message' => 'Anda Tidak Masuk.']);
+        }
 
         if($todayPresence){
             return response()->json(['message' => 'Anda sudah pulang.']);
         }
-
+        
         $employee = User::find(auth()->user()->id);
         $employee->presence()->create([
             'status' => $status,
-            'date' => Carbon::now()->format('j F Y'),
-            'time' => Carbon::now()->format('H.i T'),
+            'date' => Carbon::parse(now()->day())->format('j F Y'),
+            'time' => Carbon::parse(now()->hour())->format('H.i T'),
             'name' => $employee->name
         ]);
 
         return response()->json(['message' => 'Absensi keluar berhasil.']);
+        
     }
 }

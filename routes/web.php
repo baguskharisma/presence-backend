@@ -45,7 +45,7 @@ Route::post('/permission/manage/{id}', [PermissionController::class, 'manage']);
 Route::get('/login', [LoginController::class, 'index'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 
-Route::get('/presence', [PresenceController::class, 'index'])->name('presence');
+Route::get('/presence', [PresenceController::class, 'index'])->middleware('auth')->name('presence');
 
 Route::get('/history', [HistoryController::class, 'history'])->name('history');
 
