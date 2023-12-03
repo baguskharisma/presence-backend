@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Presence;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Position;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -12,6 +15,8 @@ class AdminController extends Controller
     public function index(Request $request){
         $user = User::query();
         $employee = $user->get();
+        $position = Position::all();
+        $department = Department::all();
 
         if($request->has('position')){
             $position = $request->input('position');
@@ -23,12 +28,22 @@ class AdminController extends Controller
 
         return view('admin.admin', [
             'employees' => $employee,
-            'selectedPosition' => $request->input('position')        
+            'selectedPosition' => $request->input('position'),
+            'positions' => $position,
+            'departments' => $department
         ]);
     }
 
     public function createUser(){
-        return view('admin.create-user');
+        $position = Position::all();
+        $department = Department::all();
+        $role = Role::all();
+
+        return view('admin.create-user', [
+            'positions' => $position,
+            'departments' => $department,
+            'roles' => $role
+        ]);
     }
 
     public function storeUser(Request $request){
@@ -56,6 +71,38 @@ class AdminController extends Controller
             'position_id' => $request->position_id,
             'role_id' => $request->role_id,
             'department_id' => $request->department_id
+        ]);
+
+        return redirect('admin');
+    }
+
+    public function createPosition(){
+        return view('admin.create-position');
+    }
+
+    public function storePosition(Request $request){
+        $request->validate([
+            'position'=>'required'
+        ]);
+
+        Position::create([
+            'position' => $request->position,
+        ]);
+
+        return redirect('admin');
+    }
+
+    public function createDepartment(){
+        return view('admin.create-department');
+    }
+
+    public function storeDepartment(Request $request){
+        $request->validate([
+            'department'=>'required'
+        ]);
+
+        Department::create([
+            'department' => $request->department,
         ]);
 
         return redirect('admin');
@@ -90,6 +137,20 @@ class AdminController extends Controller
     public function deleteUser($id){
         $employee = User::find($id);
         $employee->delete();
+
+        return redirect('admin');
+    }
+
+    public function deletePosition($id){
+        $position = Position::find($id);
+        $position->delete();
+
+        return redirect('admin');
+    }
+
+    public function deleteDepartment($id){
+        $department = Department::find($id);
+        $department->delete();
 
         return redirect('admin');
     }

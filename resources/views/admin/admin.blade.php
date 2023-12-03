@@ -27,6 +27,12 @@
             <a href="{{ route('create-schedule') }}" style="text-decoration:none; color:black;">Create Schedule</a>
         </button>
         <button>
+            <a href="{{ route('create-position') }}" style="text-decoration:none; color:black;">Create Position</a>
+        </button>
+        <button>
+            <a href="{{ route('create-department') }}" style="text-decoration:none; color:black;">Create Department</a>
+        </button>
+        <button>
             <a href="{{ route('manage-presence') }}" style="text-decoration:none; color:black;">Manage Presence</a>
         </button>
         <button>
@@ -36,6 +42,8 @@
             <a href="{{ route('home') }}" style="text-decoration:none; color:black;">Back</a>
         </button>
     </form>
+
+    <h2>Employee</h2>
 
     <table>
         <tr>
@@ -63,11 +71,46 @@
                 </form>
             </td>
         </tr>
-        @endforeach
-        
-           
+        @endforeach   
     </table>
 
+    <h2>Position</h2>
+    <table>
+        <tr>
+            <th>Posisi</th>
+        </tr>
+        @foreach ($positions as $position)
+        <tr>
+            <td>{{ $position->position }}</td>
+            <td>
+                <form action="{{ route('delete-position', $position->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach   
+    </table>
+
+    <h2>Department</h2>
+    <table>
+        <tr>
+            <th>Department</th>
+        </tr>
+        @foreach ($departments as $department)
+        <tr>
+            <td>{{ $department->department }}</td>
+            <td>
+                <form action="{{ route('delete-department', $department->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach   
+    </table>
 
 <script>
     document.getElementById('position').addEventListener('change', function() {

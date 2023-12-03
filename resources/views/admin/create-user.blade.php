@@ -32,20 +32,23 @@
 
         <select name="position_id" id="position_id" required>
             <option selected >Select Position</option>
-            <option value="1">HRD</option>
-            <option value="2">Marketing</option>
+            @foreach ($positions as $position)
+                <option value="{{ $position->id }}">{{ $position->position }}</option>
+            @endforeach
         </select>
 
         <select name="department_id" id="department_id" required>
             <option selected >Select Department</option>
-            <option value="1">Sumber Daya Manusia</option>
-            <option value="2">Pemasaran</option>
+            @foreach ($departments as $department)
+                <option value="{{ $department->id }}">{{ $department->department }}</option>
+            @endforeach
         </select>
 
         <select name="role_id" id="role_id" required>
-            <option selected >Select Position</option>
-            <option value="1">Admin</option>
-            <option value="2">User</option>
+            <option selected >Select Role</option>
+            @foreach ($roles as $role)
+                <option value="{{ $role->id }}">{{ $role->role }}</option>
+            @endforeach
         </select>
 
         <button type="submit">Add Employee</button>
