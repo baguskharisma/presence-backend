@@ -16,12 +16,11 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->string('day');
+            $table->string('date');
             $table->string('in_time');
             $table->string('out_time');
             $table->string('status');
-    
-            $table->integer('user_id');
-
+            $table->text('description');
             $table->timestamps();
         });
     }

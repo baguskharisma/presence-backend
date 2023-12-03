@@ -15,14 +15,13 @@ return new class extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('from_when');
             $table->string('to_when');
             $table->string('submission_date');
             $table->text('description');
-            $table->string('status');
-
+            $table->enum('status', ["pending", "accepted", "declined"]);
             $table->integer('user_id');
-
             $table->timestamps();
         });
     }

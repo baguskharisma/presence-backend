@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('presences', function (Blueprint $table) {
             $table->id();
-            $table->string('date');
-            $table->string('check_in');
-            $table->string('check_out');
-            $table->string('status');
-            
+            $table->string('name');
             $table->integer('user_id');
-
+            $table->string('date');
+            $table->string('time');
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -20,8 +20,12 @@
         <input type="time" name="in_time" required>
         <label for="out_time">Out Time</label>
         <input type="time" name="out_time" required>
-        <label for="status">Status</label>
-        <input type="text" name="status" required>
+        <select name="status" required>
+            <option selected >Status</option>
+            <option value="hari kerja">Hari Kerja</option>
+            <option value="tanggal merah">Tanggal Merah</option>
+            <option value="libur">Libur</option>
+        </select>
         <label for="description">Description</label>
         <input type="text" name="description">
 

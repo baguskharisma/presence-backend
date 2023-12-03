@@ -12,9 +12,6 @@
         <label for="name">Name:</label>
         <input type="text" name="name" required>
 
-        <label for="position_id">Position:</label>
-        <input type="integer" name="position_id" required>
-
         <label for="email">Email:</label>
         <input type="text" name="email" required>
 
@@ -33,11 +30,23 @@
         <label for="gender">Gender:</label>
         <input type="text" name="gender" required>
 
-        <label for="department_id">Department:</label>
-        <input type="integer" name="department_id" required>
+        <select name="position_id" id="position_id" required>
+            <option selected >Select Position</option>
+            <option value="1">HRD</option>
+            <option value="2">Marketing</option>
+        </select>
 
-        <label for="role_id">Role:</label>
-        <input type="integer" name="role_id" required>
+        <select name="department_id" id="department_id" required>
+            <option selected >Select Department</option>
+            <option value="1">Sumber Daya Manusia</option>
+            <option value="2">Pemasaran</option>
+        </select>
+
+        <select name="role_id" id="role_id" required>
+            <option selected >Select Position</option>
+            <option value="1">Admin</option>
+            <option value="2">User</option>
+        </select>
 
         <button type="submit">Add Employee</button>
         <button type="submit">

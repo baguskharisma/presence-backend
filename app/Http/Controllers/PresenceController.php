@@ -22,9 +22,14 @@ class PresenceController extends Controller
         ]);
 
         $schedule = Schedule::where('date', $request->input('date'))->first();
+        $scheduleStatus = Schedule::where('status', "Libur")->first();
 
         if (!$schedule) {
             return response()->json(['message' => 'Tidak ada jadwal pada tanggal tersebut.']);
+        }
+
+        if($scheduleStatus){
+            return response()->json(['message' => 'Hari ini libur.']);
         }
 
         $allowedHour = Carbon::parse($schedule->in_time)->format('H.i');
@@ -67,9 +72,14 @@ class PresenceController extends Controller
         ]);
 
         $schedule = Schedule::where('date', $request->input('date'))->first();
+        $scheduleStatus = Schedule::where('status', "Libur")->first();
 
         if (!$schedule) {
             return response()->json(['message' => 'Tidak ada jadwal pada tanggal tersebut.']);
+        }
+
+        if($scheduleStatus){
+            return response()->json(['message' => 'Hari ini libur.']);
         }
 
         $currentHour = now()->format('H.i');
