@@ -34,13 +34,23 @@ class CheckOutGPSLocation
     }
 
     private function calculateDistance($lat1, $lon1, $lat2, $lon2){
-        $theta = $lon1 - $lon2;
-        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-        $dist = acos($dist);
-        $dist = rad2deg($dist);
-        $miles = $dist * 60 * 1.1515;
-        $kilometers = $miles * 1.609344;
+        $earthRadius = 6371;
 
-        return $kilometers;
+        $lat1Rad = deg2rad($lat1);
+        $lon1Rad = deg2rad($lon1);
+        $lat2Rad = deg2rad($lat2);
+        $lon2Rad = deg2rad($lon2);
+
+        $latDiff = $lat2Rad - $lat1Rad;
+        $lonDiff = $lon2Rad - $lon1Rad;
+
+        $a = sin($latDiff / 2) * sin($latDiff / 2) +
+         cos($lat1Rad) * cos($lat2Rad) *
+         sin($lonDiff / 2) * sin($lonDiff / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+        $distance = $earthRadius * $c;
+
+        return $distance;
     }
 }

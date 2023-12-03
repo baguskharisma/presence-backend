@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Presence</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
 </head>
 <body>
     
@@ -26,6 +28,7 @@
 
         <button type="button" onclick="checkOut()">Absen Keluar</button>
     </form>
+    <div id="map" style="height: 200px; width: 200px"></div>
     <button>
         <a href="{{ route('create-permission') }}" style="text-decoration: none; color:black">Izin</a>
     </button>
@@ -37,11 +40,9 @@
         function checkIn() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    // Isi nilai input dengan koordinat GPS yang diperoleh
                     document.getElementById('latitudeCheckIn').value = position.coords.latitude;
                     document.getElementById('longitudeCheckIn').value = position.coords.longitude;
 
-                    // Kirim formulir setelah mendapatkan lokasi
                     document.getElementById('presenceIn').submit();
                 });
             } else {
@@ -52,17 +53,39 @@
         function checkOut() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    // Isi nilai input dengan koordinat GPS yang diperoleh
                     document.getElementById('latitudeCheckOut').value = position.coords.latitude;
                     document.getElementById('longitudeCheckOut').value = position.coords.longitude;
 
-                    // Kirim formulir setelah mendapatkan lokasi
                     document.getElementById('presenceOut').submit();
                 });
             } else {
                 alert("Geolocation is not supported by this browser.");
             }
         }
+    </script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map');
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var circle = L.circle([0.498443, 101.490217], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: 100
+            }).addTo(map);
+
+            map.setView([latitude, longitude], 17);
+
+            L.marker([latitude, longitude]).addTo(map);
+        }, function(error) {
+            console.error('Gagal mengambil posisi:', error);
+        });
     </script>
 </body>
 </html>
