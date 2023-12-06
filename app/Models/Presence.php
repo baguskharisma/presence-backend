@@ -12,10 +12,10 @@ class Presence extends Model
     protected $table = 'presences';
 
     protected $fillable = [
+        'name',
         'status',
         'date',
-        'time',
-        'name'
+        'time'
     ];
 
     public function employee()

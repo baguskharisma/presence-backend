@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('in_time');
             $table->string('out_time');
             $table->string('status');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
