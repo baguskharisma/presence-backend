@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
+    // Kolom pada tabel departments yang dapat diisi dengan mass assignment.
     protected $fillable = [
         'department'
     ];

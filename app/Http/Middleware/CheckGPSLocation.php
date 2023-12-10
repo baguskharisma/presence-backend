@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+
+// Impor kelas Request untuk mewakili dan memproses data permintaan HTTP.
 use Illuminate\Http\Request;
 
 class CheckGPSLocation
@@ -16,24 +18,33 @@ class CheckGPSLocation
      */
     public function handle(Request $request, Closure $next)
     {
+        // Variabel untuk menyimpan nilai radius yang diizinkan yaitu 100 meter.
         $allowedDistance = 0.1;
 
+        // Variabel untuk menyimpan nilai yang diterima dari permintaan HTTP.
         $latitude = $request->input('latitudeCheckIn');
         $longitude = $request->input('longitudeCheckIn');
 
+        // Variabel untuk menyimpan nilai titik koordinat kantor.
         $officeLatitude = 0.498443;
         $officeLongitude = 101.490217;
 
+        // Variabel untuk menyimpan nilai yang diterima dari hasil yang dikembalikan fungsi calculateDistance.
         $distance = $this->calculateDistance($latitude, $longitude, $officeLatitude, $officeLongitude);
 
+        // Kondisi jika titik koordinat pengguna saat ini diluar dari radius yang diizinkan.
         if($distance > $allowedDistance) {
+            // Kembalikan dalam bentuk respon JSON.
             return response()->json(['error' => 'Lokasi diluar jarak yang diinginkan'], 403);
         }
 
+        // Lanjut ke fungsi checkIn.
         return $next($request);
     }
 
+    // Fungsi untuk menghitung titik koordinat pengguna saat ini. Fungsi ini hanya dapat diakses dari dalam kelas tempat ini dideklarasikan. 
     private function calculateDistance($lat1, $lon1, $lat2, $lon2){
+        // Rumus Haversine.
         $earthRadius = 6371;
 
         $lat1Rad = deg2rad($lat1);
@@ -51,6 +62,7 @@ class CheckGPSLocation
 
         $distance = $earthRadius * $c;
 
+        // Kembalikan nilai dari variabel $distance.
         return $distance;
     }
 }

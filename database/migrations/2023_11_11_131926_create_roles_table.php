@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // Kolom pada tabel roles.
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('role');

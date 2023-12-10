@@ -7,14 +7,17 @@
     <title>Profile</title>
 </head>
 <body>
+    {{-- Header --}}
     <h2>User Profile</h2>
+    {{-- Tombol untuk kembali ke halaman home --}}
     <button>
         <a href="{{ route('home') }}" style="text-decoration: none; color: black;">Back</a>
     </button>
+    {{-- Tombol untuk masuk ke halaman schedule --}}
     <button>
         <a href="{{ route('schedule') }}" style="text-decoration: none; color: black;">Schedule</a>
     </button>
-
+    {{-- Tabel untuk menampilkan data pengguna --}}
     <table>
         <tr>
             <th>Nama</th>
@@ -26,6 +29,7 @@
             <th>Jabatan</th>
             <th>Departemen</th>
         </tr>
+        {{-- Iterasi array $users dan simpan setiap elemennya dalam variabel $user --}}
         @foreach ($users as $user)
         <tr>
             <td>{{ $user->name }}</td>

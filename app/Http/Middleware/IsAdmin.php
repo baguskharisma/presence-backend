@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+
+// Impor kelas Request untuk mewakili dan memproses data permintaan HTTP.
 use Illuminate\Http\Request;
 
 class IsAdmin
@@ -16,10 +18,13 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        // Kondisi jika pengguna yang login berstatus admin.
         if(auth()->guest() || auth()->user()->position_id !== 1){
+            // Tolak akses.
             abort(403);
         }
 
+        // Lanjut ke fungsi yang diizinkan.
         return $next($request);
     }
 }

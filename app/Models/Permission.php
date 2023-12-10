@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
 {
+    // Kolom pada tabel permissions yang dapat diisi dengan mass assignment.
     protected $fillable = [
         'name',
         'status',
@@ -18,6 +19,7 @@ class Permission extends Model
 
     use HasFactory;
 
+    // Fungsi untuk membuat relasi antar tabel permissions dan tabel users.
     public function employee(){
         return $this->belongsTo(User::class);
     }

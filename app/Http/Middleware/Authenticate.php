@@ -14,7 +14,9 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        // Kondisi jika pengguna belum login.
         if (! $request->expectsJson()) {
+            // Arahkan pengguna kembali ke halaman login.
             return route('login');
         }
     }

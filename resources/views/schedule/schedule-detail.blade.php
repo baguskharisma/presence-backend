@@ -7,10 +7,13 @@
     <title>Schedule Detail</title>
 </head>
 <body>
+    {{-- Header --}}
     <h2>Schedule Detail</h2>
+    {{-- Tombol untuk kembali ke halaman schedule --}}
     <button>
         <a href="{{ route('schedule') }}" style="text-decoration:none; color:black;">Back</a>
     </button>
+    {{-- Tabel untuk menampilkan jadwal --}}
     <table>
         <tr>
             <th>Day</th>
@@ -20,6 +23,7 @@
             <th>Status</th>
             <th>Description</th>
         </tr>
+        {{-- Iterasi array $schedules dan simpan setiap elemennya dalam variabel $schedule --}}
         @foreach ($schedules as $schedule)
         <tr>
             <td>{{ $schedule->day }}</td>

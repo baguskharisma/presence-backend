@@ -7,10 +7,13 @@
     <title>Create User</title>
 </head>
 <body>
+    {{-- Header --}}
     <h2>Add New Position</h2>
+    {{-- Tombol untuk kembali ke halaman admin --}}
     <button>
-        <a href="{{ route('admin') }}" style="text-decoration:none; color:black;">Back</a>
+        <a href="{{ route('admin') }}" style="text-decoration:none; color:black;">Cancel</a>
     </button>
+    {{-- Form untuk menambah posisi --}}
     <form action="{{ route('create-position') }}" method="POST">
         @csrf
         <label for="position">New Position:</label>

@@ -9,6 +9,7 @@ class Schedule extends Model
 {
     use HasFactory;
 
+    // Kolom pada tabel schedules yang dapat diisi dengan mass assignment.
     protected $fillable = [
         'day',
         'date',
@@ -18,6 +19,7 @@ class Schedule extends Model
         'description'
     ];
 
+    // Fungsi untuk membuat relasi antar tabel schedules dan tabel presences.
     public function presence()
     {
         return $this->hasMany(Presence::class);

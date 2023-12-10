@@ -7,10 +7,13 @@
     <title>Create User</title>
 </head>
 <body>
+    {{-- Header --}}
     <h2>Add New Department</h2>
+    {{-- Tombol untuk kembali ke halaman admin --}}
     <button>
-        <a href="{{ route('admin') }}" style="text-decoration:none; color:black;">Back</a>
+        <a href="{{ route('admin') }}" style="text-decoration:none; color:black;">Cancel</a>
     </button>
+    {{-- Form untuk menambah departemen --}}
     <form action="{{ route('create-department') }}" method="POST">
         @csrf
         <label for="department">New Department:</label>

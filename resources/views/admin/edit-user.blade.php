@@ -7,15 +7,12 @@
     <title>Edit User</title>
 </head>
 <body>
+    {{-- Form untuk mengubah data user --}}
     <form action="{{ route('update-user', $employee->id) }}" method="POST">
         @csrf
         @method('PUT')
-        
         <label for="name">Nama:</label>
         <input type="text" name="name" value="{{ $employee->name }}" required>
-
-        <label for="position_id">Posisi:</label>
-        <input type="integer" name="position_id" value="{{ $employee->position_id }}" required>
 
         <label for="email">Email:</label>
         <input type="text" name="email" value="{{ $employee->email }}" required>
@@ -35,15 +32,34 @@
         <label for="gender">Gender:</label>
         <input type="text" name="gender" value="{{ $employee->gender }}" required>
 
-        <label for="department_id">Department:</label>
-        <input type="integer" name="department_id" value="{{ $employee->department_id }}" required>
+        <select name="position_id" id="position_id" required>
+            <option selected >Select Position</option>
+            {{-- Iterasi array $positions dan simpan setiap elemennya dalam variabel $position --}}
+            @foreach ($positions as $position)
+            <option value="{{ $position->id }}">{{ $position->position }}</option>
+            @endforeach
+        </select>
 
-        <label for="role_id">Role:</label>
-        <input type="integer" name="role_id" value="{{ $employee->role_id }}" required>
+        <select name="department_id" id="department_id" required>
+            <option selected >Select Department</option>
+            {{-- Iterasi array $departments dan simpan setiap elemennya dalam variabel $department --}}
+            @foreach ($departments as $department)
+            <option value="{{ $department->id }}">{{ $department->department }}</option>
+            @endforeach
+        </select>
+
+        <<select name="role_id" id="role_id" required>
+            <option selected >Select Role</option>
+            {{-- Iterasi array $roles dan simpan setiap elemennya dalam variabel $role --}}
+            @foreach ($roles as $role)
+            <option value="{{ $role->id }}">{{ $role->role }}</option>
+            @endforeach
+        </select>
 
         <button type="submit">Update</button>
+        {{-- Tombol untuk kembali ke halaman admin --}}
         <button type="submit">
-            <a href="{{ route('admin') }}" style="text-decoration:none; color:black;">Batal</a>
+            <a href="{{ route('admin') }}" style="text-decoration:none; color:black;">Cancel</a>
         </button>
     </form>
 </body>

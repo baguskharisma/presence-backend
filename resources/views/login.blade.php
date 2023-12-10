@@ -7,10 +7,12 @@
     <title>Document</title>
 </head>
 <body>
+    {{-- Kondisi jika ada kunci sesi dengan nama loginError --}}
     @if (session()->has('loginError'))
+        {{-- Tampilkan jika ada --}}
         {{ session('loginError') }}
     @endif
-
+    {{-- Form untuk login --}}
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

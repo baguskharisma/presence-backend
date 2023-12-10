@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // Kolom pada tabel schedules.
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->string('day');

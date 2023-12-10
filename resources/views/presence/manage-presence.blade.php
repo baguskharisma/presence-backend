@@ -7,11 +7,13 @@
     <title>Manage Presence</title>
 </head>
 <body>
+    {{-- Header --}}
     <h2>Manage Presence</h2>
+    {{-- Tombol untuk kembali ke halaman admin --}}
     <button>
         <a href="{{ route('admin') }}" style="text-decoration: none; color:black">Back</a>
     </button>
-
+    {{-- Tabel untuk menampilkan data absensi --}}
     <table>
         <tr>
             <th>Name</th>
@@ -19,6 +21,7 @@
             <th>Time</th>
             <th>Status</th>
         </tr>
+        {{-- Iterasi array $presences dan simpan setiap elemennya dalam variabel $presence --}}
         @foreach ($presences as $presence)
         <tr>
             <td>{{ $presence->name }}</td>

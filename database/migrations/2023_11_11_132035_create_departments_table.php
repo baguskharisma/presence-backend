@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // Kolom pada tabel departments.
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('department');

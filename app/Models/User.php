@@ -15,9 +15,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $table = 'users';
-    protected $primaryKey = 'id';
-
+    
+    // Kolom pada tabel users yang dapat diisi dengan mass assignment.
     protected $fillable = [
         'name',
         'email',
@@ -50,22 +49,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Fungsi untuk membuat relasi antar tabel users dan tabel positions. 
     public function position(){
         return $this->belongsTo(Position::class, 'position_id');
     }
 
+    // Fungsi untuk membuat relasi antar tabel users dan tabel roles.
     public function role(){
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    // Fungsi untuk membuat relasi antar tabel users dan tabel departments.
     public function department(){
         return $this->belongsTo(Department::class, 'department_id');
     }
 
+    // Fungsi untuk membuat relasi antar tabel users dan tabel presences.
     public function presence(){
         return $this->hasMany(Presence::class);
     }
 
+    // Fungsi untuk membuat relasi antar tabel users dan tabel permissions.
     public function permission(){
         return $this->hasMany(Permission::class, 'name');
     }

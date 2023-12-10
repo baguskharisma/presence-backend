@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // Kolom pada tabel permissions.
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
