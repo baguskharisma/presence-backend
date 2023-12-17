@@ -18,7 +18,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        // Kondisi jika pengguna yang login berstatus admin.
+        // Kondisi jika pengguna yang login berstatus user.
         if(auth()->guest() || auth()->user()->position_id !== 1){
             // Tolak akses.
             abort(403);
